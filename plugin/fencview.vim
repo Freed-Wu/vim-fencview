@@ -607,12 +607,12 @@ endfunction
 
 
 function! s:DetectHtmlEncoding() " {{{1
-    normal m`
-    normal gg
+    normal! m`
+    normal! gg
     if search('\c<meta http-equiv=\("\?\)Content-Type\1 content="text/html; charset=[-A-Za-z0-9_]\+">')!=0
         let charset=matchstr(getline('.'), 'text/html; charset=\zs[-A-Za-z0-9_]\+', col('.') - 1)
         let charset=s:ConvertHtmlEncoding(charset)
-        normal ``
+        normal! ``
         if &fileencodings==''
           let auto_encodings=','.&encoding.','
         else
@@ -787,7 +787,7 @@ function! s:ToggleFencView() "{{{1
     call append(0,s:Fenc8bit)
     call append(0,s:Fenc16bit)
     call append(0,s:FencUnicode)
-    normal Gddgg
+    normal! Gddgg
     setlocal readonly
     setlocal nomodifiable
     syn match Type "^.\{-}\s"
@@ -801,7 +801,7 @@ function! s:ToggleFencView() "{{{1
             exec "syn match Search \""._line."\""
         endif
     else
-        normal gg
+        normal! gg
     endif
     nnoremap <buffer> <CR> :call <SID>FencSelect()<CR>
     nnoremap <buffer> <2-leftmouse> :call <SID>FencSelect()<CR>
