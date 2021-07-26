@@ -126,7 +126,11 @@ if !exists('g:fencview_html_filetypes')
     let g:fencview_html_filetypes='html'
 endif
 if $FENCVIEW_TELLENC == ''
-    let $FENCVIEW_TELLENC ='tellenc'
+    if executable('tellenc')
+        let $FENCVIEW_TELLENC = 'tellenc'
+    elseif executable('file')
+        let $FENCVIEW_TELLENC = 'file -b --mime-type'
+    endif
 endif
 
 
@@ -702,7 +706,7 @@ function! s:EditAutoEncoding(...) "{{{1
             return
         endif
     endif
-    if ($FENCVIEW_TELLENC == "fencview") || !executable($FENCVIEW_TELLENC)
+    if $FENCVIEW_TELLENC == "fencview"
         call s:FencDetectFileEncoding()
         return
     endif
