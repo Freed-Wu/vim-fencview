@@ -129,7 +129,7 @@ if $FENCVIEW_TELLENC == ''
     if executable('tellenc')
         let $FENCVIEW_TELLENC = 'tellenc'
     elseif executable('file')
-        let $FENCVIEW_TELLENC = 'file -b --mime-type'
+        let $FENCVIEW_TELLENC = 'file -b --mime-encoding'
     endif
 endif
 
